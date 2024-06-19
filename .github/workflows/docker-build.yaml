@@ -1,0 +1,25 @@
+name: Maven & Docker & Deploy
+on:
+  workflow_dispatch:
+jobs:
+        build:
+                name: Compile, Build Native, Build Docker Image, Push on Github
+                runs-on: ubuntu-latest
+                permissions: write-all
+                steps:
+                        - name: Git Checkout
+                          uses: actions/checkout@v3
+                          with:
+                                  fetch-depth: 1
+                                  
+                        - name: Publish Image
+                          uses: matootie/github-docker@v3.1.0
+                          with:
+                                containerRegistry: true
+                                accessToken: ${{ github.token }}
+                                contextName: docker/Dockerfile
+                                tag: latest
+                                 
+
+
+                        
